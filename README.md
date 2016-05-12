@@ -1,6 +1,6 @@
 # hello-world
 just another repository
 
-hello
+hello world
  
 this is a test
