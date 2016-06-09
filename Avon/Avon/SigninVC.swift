@@ -17,6 +17,8 @@ class SigninVC: ViewController {
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardHide), name: UIKeyboardWillHideNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(onKeyboardShow), name: UIKeyboardWillShowNotification, object: nil)
+		
+		gotoSignup()
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -128,7 +130,7 @@ class SigninVC: ViewController {
 		request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringCacheData
 		request.timeoutInterval = 30
 		
-		let paramString = "email=\(txtEM.text)&password=\(txtPW.text)&provider=email"
+		let paramString = "email=\(txtEM.text!)&password=\(txtPW.text!)&provider=email"
 		request.HTTPBody = paramString.dataUsingEncoding(NSUTF8StringEncoding)
 		
 		let task = session.dataTaskWithRequest(request) {(

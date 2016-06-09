@@ -11,12 +11,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds )
 		
-				let navCon = UINavigationController(rootViewController: LoginVC() )
-		//		let navCon = UINavigationController(rootViewController: SigninVC() )
+		let navCon = UINavigationController(rootViewController: LoginVC() )
+		//				let navCon = UINavigationController(rootViewController: SigninVC() )
 		//		let navCon = UINavigationController(rootViewController: WelcomeVC() )
-//		let navCon = UINavigationController(rootViewController: MainVC() )
-//		let navCon = UINavigationController(rootViewController: DonateVC() )
-
+		//		let navCon = UINavigationController(rootViewController: MainVC() )
+		//		let navCon = UINavigationController(rootViewController: DonateVC() )
+		
 		navCon.navigationBarHidden = true
 		window?.rootViewController = navCon
 		window?.makeKeyAndVisible()

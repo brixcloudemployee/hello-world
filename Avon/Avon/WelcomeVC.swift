@@ -71,7 +71,8 @@ class WelcomeVC: ViewController {
 		txtSteps.keyboardType = .NumberPad
 		txtSteps.font = UIFont.systemFontOfSize(25)
 		txtSteps.textAlignment = .Center
-		txtSteps.placeholder = "0"
+		txtSteps.text = "3000"
+		txtSteps.placeholder = "3000"
 		scrollView.addSubview(txtSteps)
 		
 		

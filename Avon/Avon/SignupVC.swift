@@ -141,6 +141,16 @@ class SignupVC: ViewController {
 			return
 		}
 		
+		if txtCPW.text?.isEmpty == true {
+			UIAlertController.showMessage(self, title: "Sign In Failed", message: "Please confirm password")
+			return
+		}
+		
+		if txtPW.text != txtCPW.text {
+			UIAlertController.showMessage(self, title: "Sign In Failed", message: "Please confirm password not the same")
+			return
+		}
+		
 		signupUser()
 	}
 	
@@ -158,9 +168,9 @@ class SignupVC: ViewController {
 		request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringCacheData
 		request.timeoutInterval = 30
 		
-		let paramString = "first_name=\(txtFN.text)&last_name=\(txtLN.text)&email=\(txtEM.text)&password=\(txtPW.text)&provider=email"
+		let paramString = "first_name=\(txtFN.text!)&last_name=\(txtLN.text!)&email=\(txtEM.text!)&password=\(txtPW.text!)&provider=email"
 		request.HTTPBody = paramString.dataUsingEncoding(NSUTF8StringEncoding)
-
+		
 		let task = session.dataTaskWithRequest(request) {(
 			let data, let response, let error) in
 			BFLoader.sharedInstance.hideLoader(self.view)
