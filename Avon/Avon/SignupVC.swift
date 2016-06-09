@@ -8,7 +8,7 @@ class SignupVC: ViewController {
 	var txtLN: UITextField!
 	var txtEM: UITextField!
 	var txtPW: UITextField!
-	
+	var txtCPW: UITextField!
 	
 	// MARK: - View
 	override func viewDidLoad() {
@@ -88,10 +88,20 @@ class SignupVC: ViewController {
 			40))
 		txtPW.borderStyle = .RoundedRect
 		txtPW.placeholder = "Password"
+		txtPW.secureTextEntry = true
 		scrollView.addSubview(txtPW)
-		
-		let btnSignup = UIButton(frame: CGRectMake(Constants.Size.SCREEN_WIDTH * 0.10,
+
+		txtCPW = UITextField(frame: CGRectMake(Constants.Size.SCREEN_WIDTH * 0.10,
 			txtPW.frame.origin.y + txtPW.frame.size.height + 10,
+			Constants.Size.SCREEN_WIDTH * 0.80,
+			40))
+		txtCPW.borderStyle = .RoundedRect
+		txtCPW.placeholder = "Confirm Password"
+		txtCPW.secureTextEntry = true
+		scrollView.addSubview(txtCPW)
+
+		let btnSignup = UIButton(frame: CGRectMake(Constants.Size.SCREEN_WIDTH * 0.10,
+			txtCPW.frame.origin.y + txtCPW.frame.size.height + 10,
 			Constants.Size.SCREEN_WIDTH * 0.80,
 			40))
 		btnSignup.imageView?.contentMode = .ScaleAspectFit
