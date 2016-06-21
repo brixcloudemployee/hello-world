@@ -8,6 +8,11 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     let locationManager = CLLocationManager()
     var bluetoothManager = CBCentralManager()
 
+	var val1:Int = 0
+	var val2:Int = 0
+	var val3:Int = 0
+	var val4:Int = 0
+
     var arrData = [AnyObject]()
     var theBeacon: CLBeacon!
     var tblvList: UITableView!
@@ -40,6 +45,9 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         prepareUI()
         
 //        requestBeaconData("", min: "")
+			
+			NSTimer.scheduledTimerWithTimeInterval(1.0/2.0, target: self, selector: #selector(compareValue), userInfo: nil, repeats: true)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -119,7 +127,7 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         theBeacon = beacon
         requestBeaconData(String(theBeacon.major), min: String(theBeacon.minor))
-    }
+	}
     
     func requestBeaconData(max: String, min: String) {
         print("requestBeaconData")
@@ -442,4 +450,31 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             }
         }
     }
+	
+	func compareValue() {
+		let value:Int = Int(1+arc4random()%2)
+		print("value: \(value)")
+		
+		if val1 != value {
+			print("1")
+			val1 = value
+			val2 = 0
+			val3 = 0
+			val4 = 0
+		} else if val2 != value {
+			print("2")
+			val2 = value
+			val3 = 0
+			val4 = 0
+		} else if val3 != value {
+			print("3")
+			val3 = value
+			val4 = 0
+		} else if val4 != value {
+			print("4")
+			val4 = value
+		} else {
+			print("5")
+		}
+	}
 }
