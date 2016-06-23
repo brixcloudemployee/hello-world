@@ -117,6 +117,7 @@
 				TargetAttributes = {
 					56CA1EF21CF265E000E7D200 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 6432TKLNP4;
 					};
 				};
 			};
@@ -279,12 +280,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jack Jung (SSG27S7V2P)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: kurt brendlinger (6YE8FNW275)";
 				INFOPLIST_FILE = Drig/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dnr.Drig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5b7b6ea7-1634-4574-bee2-88309a2d7681";
+				PROVISIONING_PROFILE = "ec17bad3-07b0-4ecc-ba9e-5887fb6ddf15";
 			};
 			name = Debug;
 		};
@@ -292,12 +294,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jack Jung (SSG27S7V2P)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: kurt brendlinger (6YE8FNW275)";
 				INFOPLIST_FILE = Drig/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dnr.Drig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5b7b6ea7-1634-4574-bee2-88309a2d7681";
+				PROVISIONING_PROFILE = "ec17bad3-07b0-4ecc-ba9e-5887fb6ddf15";
 			};
 			name = Release;
 		};

@@ -10,7 +10,7 @@ class PromoDetailVC: UIViewController {
     
     
     // MARK: - View
-	override func viewDidLoad() {
+		override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.lightGrayColor()
 		
@@ -30,7 +30,7 @@ class PromoDetailVC: UIViewController {
         }
 	}
 	
-	override func didReceiveMemoryWarning() {
+		override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
@@ -54,21 +54,33 @@ class PromoDetailVC: UIViewController {
     }
 
     func prepareImageView() {
-        let imageView = UIImageView(frame: CGRectMake(0,
-            Constants.Size.HEADER_HEIGHT,
-            Constants.Size.SCREEN_WIDTH,
-            Constants.Size.SCREEN_HEIGHT - Constants.Size.HEADER_HEIGHT))
-        imageView.image = UIImage(named: "Placeholder")
-        imageView.downloadImageFrom(link: strImage!, contentMode: .ScaleAspectFit)
-        self.view.addSubview(imageView)
+//        let imageView = UIImageView(frame: CGRectMake(0,
+//            Constants.Size.HEADER_HEIGHT,
+//            Constants.Size.SCREEN_WIDTH,
+//            Constants.Size.SCREEN_HEIGHT - Constants.Size.HEADER_HEIGHT))
+//        imageView.image = UIImage(named: "Placeholder")
+//        imageView.downloadImageFrom(link: strImage!, contentMode: .ScaleAspectFit)
+//        self.view.addSubview(imageView)
+			
+			let webView = UIWebView(frame: CGRectMake(0,
+				Constants.Size.HEADER_HEIGHT,
+				Constants.Size.SCREEN_WIDTH,
+				Constants.Size.SCREEN_HEIGHT - Constants.Size.HEADER_HEIGHT))
+			let request = NSURLRequest(URL: NSURL(string: strImage!)!)
+			webView.delegate = self
+			webView.scalesPageToFit = true
+			webView.contentMode = UIViewContentMode.ScaleAspectFit
+			webView.loadRequest(request)
+			self.view.addSubview(webView)
     }
-    
+	
     func prepareVideoView() {
         let webView = UIWebView(frame: CGRectMake(0,
             Constants.Size.HEADER_HEIGHT,
             Constants.Size.SCREEN_WIDTH,
             Constants.Size.SCREEN_HEIGHT - Constants.Size.HEADER_HEIGHT))
         let request = NSURLRequest(URL: NSURL(string: strVideo!)!)
+				webView.delegate = self
         webView.loadRequest(request)
         self.view.addSubview(webView)
     }
@@ -79,6 +91,7 @@ class PromoDetailVC: UIViewController {
             Constants.Size.SCREEN_WIDTH,
             Constants.Size.SCREEN_HEIGHT - Constants.Size.HEADER_HEIGHT))
         let request = NSURLRequest(URL: NSURL(string: strLink!)!)
+				webView.delegate = self
         webView.loadRequest(request)
         self.view.addSubview(webView)
     }
@@ -88,4 +101,19 @@ class PromoDetailVC: UIViewController {
     func goBack() {
         self.navigationController?.popViewControllerAnimated(false)
     }
+}
+
+extension PromoDetailVC: UIWebViewDelegate {
+	
+	func webViewDidStartLoad(webView: UIWebView) {
+		BFLoader.sharedInstance.showLoader(self.view)
+	}
+	
+	func webViewDidFinishLoad(webView: UIWebView) {
+		BFLoader.sharedInstance.hideLoader(self.view)
+	}
+	
+	func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+		BFLoader.sharedInstance.hideLoader(self.view)
+	}
 }

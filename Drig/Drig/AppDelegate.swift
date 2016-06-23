@@ -19,11 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds )
         
-//        let navCon = UINavigationController(rootViewController: ViewController() )
         var navCon = UINavigationController(rootViewController: LoginVC() )
 //        var navCon = UINavigationController(rootViewController: PromoListVC() )
-        //let navCon = UINavigationController(rootViewController: PromoDetailVC() )
-        
+			
         if NSUserDefaults.standardUserDefaults().objectForKey("std-email") != nil {
             navCon = UINavigationController(rootViewController: PromoListVC() )
         }

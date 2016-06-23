@@ -7,20 +7,12 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     // MARK: - Properties
     let locationManager = CLLocationManager()
     var bluetoothManager = CBCentralManager()
-
-	var val1:Int = 0
-	var val2:Int = 0
-	var val3:Int = 0
-	var val4:Int = 0
-
+	
     var arrData = [AnyObject]()
-    var theBeacon: CLBeacon!
+    var beacon1 = CLBeacon()
+		var beacon2 = CLBeacon()
+		var noBeacon = false
     var tblvList: UITableView!
-    
-    enum JSONError: String, ErrorType {
-        case NoData = "ERROR: no data"
-        case ConversionFailed = "ERROR: conversion from JSON failed"
-    }
     
     
     // MARK: - View
@@ -44,10 +36,7 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         setupLocMan()
         prepareUI()
         
-//        requestBeaconData("", min: "")
-			
-			NSTimer.scheduledTimerWithTimeInterval(1.0/2.0, target: self, selector: #selector(compareValue), userInfo: nil, repeats: true)
-
+//        requestBeaconData("710", min: "1")
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,14 +66,13 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tblvList.separatorColor = UIColor.clearColor()
         self.view.addSubview(tblvList);
     }
-    
-    
+	
+	
     // MARK: - Location Manager
     func setupLocMan() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
-        //        locationManager.distanceFilter = 5.0
         if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.AuthorizedWhenInUse) {
             locationManager.requestWhenInUseAuthorization()
         }
@@ -103,31 +91,34 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         let knownBeacons = beacons.filter{ $0.proximity != CLProximity.Unknown }
         
-        stopLocMan()
-        self.performSelector(#selector(startLocMan), withObject: nil, afterDelay: 5.0)
-        
 //        print("count: \(knownBeacons.count)")
         if (knownBeacons.count > 0) {
+						noBeacon = false
             let closestBeacon = knownBeacons[0] as CLBeacon
             prepareBeacon(closestBeacon)
         } else {
+					if noBeacon == true {
             arrData = [AnyObject]()
             tblvList.reloadData()
+					}
+					noBeacon = true
         }
     }
     
     func prepareBeacon(beacon: CLBeacon) {
         print(beacon.major, beacon.minor)
-        
-        if let savedBeacon = theBeacon {
-            if savedBeacon.major == beacon.major && savedBeacon.minor == beacon.minor {
-                return
-            }
-        }
-        
-        theBeacon = beacon
-        requestBeaconData(String(theBeacon.major), min: String(theBeacon.minor))
-	}
+
+				if beacon1.major == beacon.major && beacon1.minor == beacon.minor {
+					if beacon2.major == beacon.major && beacon2.minor == beacon.minor {
+						// same beacon do nothing
+					} else {
+						beacon2 = beacon
+						requestBeaconData(String(beacon.major), min: String(beacon.minor))
+					}
+				} else {
+					beacon1 = beacon
+				}
+		}
     
     func requestBeaconData(max: String, min: String) {
         print("requestBeaconData")
@@ -241,7 +232,7 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         let promo = arrData[indexPath.row]
         bumpPromo(promo["max"] as! String, min: promo["min"] as! String, id: promo["_id"] as! String)
-        
+			
         let nextVC = PromoDetailVC()
         if let promoVideo = promo["videoURL"] as? String where promoVideo != "null" {
             nextVC.strVideo = promoVideo
@@ -315,6 +306,7 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func centralManagerDidUpdateState(central: CBCentralManager) {
         
         var stateString = ""
+				var bON = false
         
         switch bluetoothManager.state {
             
@@ -332,12 +324,18 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             
         case CBCentralManagerState.PoweredOn:
             stateString = "Bluetooth is currently powered on and available to use."
+						bON = true
             
         default:
             stateString = "State unknown, update imminent."
         }
-        
-        UIAlertController.showMessage(self, title: "Bluetooth state", message: stateString)
+			
+				if bON == true {
+					// do nothing
+				} else {
+					UIAlertController.showMessage(self, title: "Bluetooth state", message: stateString)
+					self.performSelector(#selector(checkBluetooth), withObject: nil, afterDelay: 2.0)
+				}
     }
 
     
@@ -450,31 +448,4 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             }
         }
     }
-	
-	func compareValue() {
-		let value:Int = Int(1+arc4random()%2)
-		print("value: \(value)")
-		
-		if val1 != value {
-			print("1")
-			val1 = value
-			val2 = 0
-			val3 = 0
-			val4 = 0
-		} else if val2 != value {
-			print("2")
-			val2 = value
-			val3 = 0
-			val4 = 0
-		} else if val3 != value {
-			print("3")
-			val3 = value
-			val4 = 0
-		} else if val4 != value {
-			print("4")
-			val4 = value
-		} else {
-			print("5")
-		}
-	}
 }
