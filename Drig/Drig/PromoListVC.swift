@@ -33,10 +33,10 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         super.viewDidLoad()
         self.title = "Promos"
         
-//        setupLocMan()
+        setupLocMan()
         prepareUI()
         
-        requestBeaconData("710", min: "1")
+//        requestBeaconData("710", min: "1")
     }
     
     override func didReceiveMemoryWarning() {
