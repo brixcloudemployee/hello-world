@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if NSUserDefaults.standardUserDefaults().objectForKey("std-email") != nil {
             navCon = UINavigationController(rootViewController: PromoListVC() )
         }
-        
+			
         navCon.navigationBarHidden = true
         window?.rootViewController = navCon
         window?.makeKeyAndVisible()

@@ -65,7 +65,7 @@ class LoginVC: UIViewController {
                                     txtPass.frame.origin.y + txtPass.frame.size.height + 25,
                                     sizeScreen.width - 20,
                                     35)
-        btnLogin.backgroundColor = UIColor.lightGrayColor()
+        btnLogin.backgroundColor = UIColor.colorFromHex(0xE76B20)
         btnLogin.tintColor = UIColor.blackColor()
         btnLogin.setTitle("Login", forState: .Normal)
         btnLogin.addTarget(self, action: #selector(attemptLogin), forControlEvents: .TouchUpInside)
@@ -76,7 +76,7 @@ class LoginVC: UIViewController {
                                      btnLogin.frame.origin.y + btnLogin.frame.size.height + 15,
                                      btnLogin.frame.size.width,
                                      btnLogin.frame.size.height)
-        btnSignup.backgroundColor = UIColor.lightGrayColor()
+        btnSignup.backgroundColor = UIColor.colorFromHex(0xE76B20)
         btnSignup.tintColor = UIColor.blackColor()
         btnSignup.setTitle("Register", forState: .Normal)
         btnSignup.addTarget(self, action: #selector(attemptSignup), forControlEvents: .TouchUpInside)

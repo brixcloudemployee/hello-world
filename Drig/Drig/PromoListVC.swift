@@ -13,8 +13,8 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
 		var beacon2 = CLBeacon()
 		var noBeacon = false
     var tblvList: UITableView!
-    
-    
+		var lblTitle: UILabel!
+	
     // MARK: - View
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
@@ -33,10 +33,10 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         super.viewDidLoad()
         self.title = "Promos"
         
-        setupLocMan()
+//        setupLocMan()
         prepareUI()
         
-//        requestBeaconData("710", min: "1")
+        requestBeaconData("710", min: "1")
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,7 +45,13 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func prepareUI() {
-        let lblTitle = UILabel(frame: CGRectMake(0,
+				let imgvBG = UIImageView(frame: CGRectMake(0,0,Constants.Size.SCREEN_WIDTH,Constants.Size.SCREEN_HEIGHT))
+				imgvBG.backgroundColor = UIColor.colorFromHex(0xC5CAE9)
+				imgvBG.image = UIImage(named: "Launch")
+				imgvBG.contentMode = .ScaleAspectFit
+				self.view.addSubview(imgvBG)
+			
+        lblTitle = UILabel(frame: CGRectMake(0,
             0,
             Constants.Size.SCREEN_WIDTH,
             Constants.Size.HEADER_HEIGHT))
@@ -62,9 +68,17 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
                                     Constants.Size.HEADER_HEIGHT,
                                     Constants.Size.SCREEN_WIDTH,
                                     Constants.Size.SCREEN_HEIGHT - Constants.Size.HEADER_HEIGHT);
-        tblvList.backgroundColor = UIColor.colorFromHex(0xC5CAE9)
+//        tblvList.backgroundColor = UIColor.colorFromHex(0xC5CAE9)
+				tblvList.backgroundColor = UIColor.clearColor()
         tblvList.separatorColor = UIColor.clearColor()
         self.view.addSubview(tblvList);
+			
+				let imgvButton = UIImageView(frame: CGRectMake(Constants.Size.SCREEN_WIDTH - 60,
+					Constants.Size.SCREEN_HEIGHT - 60,
+					40,
+					40))
+				imgvButton.image = UIImage(named: "ColorIcon")
+				self.view.addSubview(imgvButton)
     }
 	
 	
@@ -146,10 +160,18 @@ class PromoListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 }
                 
                 dispatch_async(dispatch_get_main_queue()) {
-//                    print(json)
+                    print(json)
                     self.arrData = [AnyObject]()
                     self.arrData += json
                     self.tblvList.reloadData()
+									
+									if self.arrData.count > 0 {
+										if let dictPromo = self.arrData[0] as? NSDictionary {
+											if let merchant = dictPromo["merchant"] as? String {
+												self.lblTitle.text = merchant
+											}
+										}
+									}
                 }
                 
             } catch let error as JSONError {

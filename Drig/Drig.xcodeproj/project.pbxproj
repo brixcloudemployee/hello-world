@@ -284,9 +284,10 @@
 				INFOPLIST_FILE = Drig/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dnr.Drig;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drigmethods.beepoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ec17bad3-07b0-4ecc-ba9e-5887fb6ddf15";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -294,13 +295,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: kurt brendlinger (6YE8FNW275)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ruel Rodrigo (82WMP7Z3UG)";
 				INFOPLIST_FILE = Drig/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dnr.Drig;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drigmethods.beepoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ec17bad3-07b0-4ecc-ba9e-5887fb6ddf15";
+				PROVISIONING_PROFILE = "157ff8fe-1cde-436b-b88b-88134ad336d3";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
